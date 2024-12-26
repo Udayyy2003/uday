@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>EMI Calculator</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="principal">Loan Amount (Principal):</label>
+                <input type="number" step="0.01" id="principal" name="principal" required placeholder="e.g., 500000">
+            </div>
+            <div class="form-group">
+                <label for="rate_of_interest">Annual Interest Rate (%):</label>
+                <input type="number" step="0.01" id="rate_of_interest" name="rate_of_interest" required placeholder="e.g., 7.5">
+            </div>
+            <div class="form-group">
+                <label for="tenure">Tenure (Months):</label>
+                <input type="number" id="tenure" name="tenure" required placeholder="e.g., 60">
+            </div>
+            <button type="submit">Calculate EMI</button>
+        </form>
+
+        {% if emi %}
+            <div class="result">
+                {% if emi == "Invalid input! Please ensure all inputs are correct." %}
+                    <p class="error">{{ emi }}</p>
+                {% else %}
+                    <p>Your EMI is: <strong>₹{{ "%.2f"|format(emi) }}</strong> per month</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
